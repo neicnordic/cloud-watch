@@ -51,8 +51,4 @@ public class Tenant implements Serializable {
         this.vmsRunning = vmsRunning;
     }
 
-    public boolean isNewProduct() {
-        return getId() == -1;
-    }
-
 }

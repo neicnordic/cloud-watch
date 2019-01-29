@@ -18,34 +18,6 @@ public class VMDataProvider extends ListDataProvider<VM> {
         super(DataService.get().getAllVMs());
     }
 
-//    /**
-//     * Store given tenant to the backing data service.
-//     *
-//     * @param tenant
-//     *            the updated or new tenant
-//     */
-//    public void save(Tenant tenant) {
-//        boolean newProduct = tenant.isNewProduct();
-//
-//        DataService.get().updateTenant(tenant);
-//        if (newProduct) {
-//            refreshAll();
-//        } else {
-//            refreshItem(tenant);
-//        }
-//    }
-
-//    /**
-//     * Delete given tenant from the backing data service.
-//     *
-//     * @param tenant
-//     *            the tenant to be deleted
-//     */
-//    public void delete(Tenant tenant) {
-//        DataService.get().deleteTenant(tenant.getId());
-//        refreshAll();
-//    }
-
     /**
      * Sets the filter to use for this data provider and refreshes data.
      * <p>

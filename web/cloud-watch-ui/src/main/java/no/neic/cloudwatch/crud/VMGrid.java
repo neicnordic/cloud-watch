@@ -34,10 +34,6 @@ public class VMGrid extends Grid<VM> {
                 .setComparator(Comparator.comparing(VM::getFlavour))
                 .setFlexGrow(3);
 
-        // Add an traffic light icon in front of availability
-        // Three css classes with the same names of three availability values,
-        // Available, Coming and Discontinued, are defined in shared-styles.css and are
-        // used here in availabilityTemplate.
         final String availabilityTemplate = "<iron-icon icon=\"vaadin:circle\" class-name=\"[[item.availability]]\"></iron-icon> [[item.availability]]";
         addColumn(TemplateRenderer.<VM>of(availabilityTemplate)
                 .withProperty("availability", vm -> vm.getStatus().toString()))
@@ -46,18 +42,10 @@ public class VMGrid extends Grid<VM> {
                 .setFlexGrow(5);
 
 
-        // Show all categories the product is in, separated by commas
         addColumn(this::formatRegions)
                 .setHeader("Region")
+                .setComparator(Comparator.comparing(vm -> vm.getRegion().getName()))
                 .setFlexGrow(12);
-    }
-
-    public VM getSelectedRow() {
-        return asSingleSelect().getValue();
-    }
-
-    public void refresh(VM vm) {
-        getDataCommunicator().refresh(vm);
     }
 
     private String formatRegions(VM vm) {

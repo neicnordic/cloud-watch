@@ -50,9 +50,9 @@ public class MockDataService extends DataService {
 
     @Override
     public synchronized Tenant getTenantById(int tenantId) {
-        for (int i = 0; i < tenants.size(); i++) {
-            if (tenants.get(i).getId() == tenantId) {
-                return tenants.get(i);
+        for (Tenant tenant : tenants) {
+            if (tenant.getId() == tenantId) {
+                return tenant;
             }
         }
         return null;
@@ -60,9 +60,9 @@ public class MockDataService extends DataService {
 
     @Override
     public VM getVMById(int vmId) {
-        for (int i = 0; i < vms.size(); i++) {
-            if (vms.get(i).getId() == vmId) {
-                return vms.get(i);
+        for (VM vm : vms) {
+            if (vm.getId() == vmId) {
+                return vm;
             }
         }
         return null;

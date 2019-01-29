@@ -27,7 +27,6 @@ public class TenantCrudLogic implements Serializable {
 
     public void init() {
         editTenant(null);
-        // Hide and disable if not admin
         if (!AccessControlFactory.getInstance().createAccessControl()
                 .isUserInRole(AccessControl.ADMIN_ROLE_NAME)) {
 //            view.setNewProductEnabled(false);
@@ -76,22 +75,6 @@ public class TenantCrudLogic implements Serializable {
         return DataService.get().getTenantById(tenantId);
     }
 
-//    public void saveProduct(Tenant tenant) {
-//        boolean newProduct = tenant.isNewProduct();
-//        view.clearSelection();
-//        view.updateProduct(tenant);
-//        setFragmentParameter("");
-//        view.showSaveNotification(tenant.getName()
-//                + (newProduct ? " created" : " updated"));
-//    }
-
-//    public void deleteProduct(Tenant tenant) {
-//        view.clearSelection();
-//        view.removeProduct(tenant);
-//        setFragmentParameter("");
-//        view.showSaveNotification(tenant.getName() + " removed");
-//    }
-
     public void editTenant(Tenant tenant) {
         if (tenant == null) {
             setFragmentParameter("");
@@ -100,12 +83,6 @@ public class TenantCrudLogic implements Serializable {
         }
         view.editTenant(tenant);
     }
-
-//    public void newProduct() {
-//        view.clearSelection();
-//        setFragmentParameter("new");
-//        view.editTenant(new Tenant());
-//    }
 
     public void rowSelected(Tenant tenant) {
         if (AccessControlFactory.getInstance().createAccessControl()

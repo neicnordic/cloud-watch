@@ -27,7 +27,6 @@ public class VMCrudView extends HorizontalLayout
     private TextField filter;
 
     private VMCrudLogic viewLogic = new VMCrudLogic(this);
-//    private Button newProduct;
 
     private VMDataProvider dataProvider = new VMDataProvider();
 
@@ -63,31 +62,13 @@ public class VMCrudView extends HorizontalLayout
         // Apply the filter to grid's data provider. TextField value is never null
         filter.addValueChangeListener(event -> dataProvider.setFilter(event.getValue()));
 
-//        newProduct = new Button("New product");
-//        newProduct.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-//        newProduct.setIcon(VaadinIcon.PLUS_CIRCLE.create());
-//        newProduct.addClickListener(click -> viewLogic.newProduct());
-
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setWidth("100%");
         topLayout.add(filter);
-//        topLayout.add(newProduct);
         topLayout.setVerticalComponentAlignment(Alignment.START, filter);
         topLayout.expand(filter);
         return topLayout;
     }
-
-    public void showError(String msg) {
-        Notification.show(msg);
-    }
-
-    public void showSaveNotification(String msg) {
-        Notification.show(msg);
-    }
-
-//    public void setNewProductEnabled(boolean enabled) {
-//        newProduct.setEnabled(enabled);
-//    }
 
     public void clearSelection() {
         grid.getSelectionModel().deselectAll();
@@ -97,18 +78,6 @@ public class VMCrudView extends HorizontalLayout
         grid.getSelectionModel().select(row);
     }
 
-    public VM getSelectedRow() {
-        return grid.getSelectedRow();
-    }
-
-//    public void updateProduct(Tenant tenant) {
-//        dataProvider.save(tenant);
-//    }
-
-//    public void removeProduct(Tenant tenant) {
-//        dataProvider.delete(tenant);
-//    }
-
     public void editVM(VM vm) {
         showForm(vm != null);
         form.editVM(vm);
@@ -116,12 +85,6 @@ public class VMCrudView extends HorizontalLayout
 
     public void showForm(boolean show) {
         form.setVisible(show);
-
-        /* FIXME The following line should be uncommented when the CheckboxGroup
-         * issue is resolved. The category CheckboxGroup throws an
-         * IllegalArgumentException when the form is disabled.
-         */
-        //form.setEnabled(show);
     }
 
     @Override
