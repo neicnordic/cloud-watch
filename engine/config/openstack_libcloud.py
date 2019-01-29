@@ -4,7 +4,6 @@ from os import walk
 import collections
 import errno
 import subprocess
-import six
 from pkg_resources import iter_entry_points
 
 from libcloud.compute.types import Provider
@@ -72,6 +71,7 @@ def load_data(path):
 def load_credentials():
     """ load credentials data """
     credentials = load_data(os.path.abspath('config.yaml'))
+    print credentials
     return credentials
 
 def get_openstack_libcloud():
@@ -79,7 +79,10 @@ def get_openstack_libcloud():
     libcloud.security.VERIFY_SSL_CERT = False
     OpenStack = get_driver(Provider.OPENSTACK)
     driver = OpenStack(credentials['user'], credentials['password'],
+                   ex_tenant_name=credentials['tenant'],
+                   ex_domain_name=credentials['domain'],
                    ex_force_auth_url=credentials['auth_url'],
+                   ex_force_service_region=credentials['region'],
                    ex_force_auth_version=credentials['version'])
     return driver
 
