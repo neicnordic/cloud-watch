@@ -87,7 +87,7 @@ public class MockDataGenerator {
         vm.setName(generateName());
         Tenant tenant = getTenant(tenants);
         vm.setTenant(tenant);
-        vm.setTenant(tenant);
+        vm.setRegion(tenant.getRegion());
         vm.setFlavour("x-large");
         vm.setStatus(Status.RUNNING);
         return vm;
