@@ -8,14 +8,15 @@ import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import no.neic.cloudwatch.about.AboutView;
-import no.neic.cloudwatch.crud.SampleCrudView;
+import no.neic.cloudwatch.crud.TenantCrudView;
+import no.neic.cloudwatch.crud.VMCrudView;
 
 /**
  * The layout of the pages e.g. About and Inventory.
  */
 @HtmlImport("css/shared-styles.html")
 @Theme(value = Lumo.class)
-@PWA(name = "Bookstore Starter", shortName = "Bookstore")
+@PWA(name = "Cloud Watch", shortName = "Cloud Watch")
 public class MainLayout extends FlexLayout implements RouterLayout {
 
     private Menu menu;
@@ -25,8 +26,10 @@ public class MainLayout extends FlexLayout implements RouterLayout {
         setClassName("main-layout");
 
         menu = new Menu();
-        menu.addView(SampleCrudView.class, SampleCrudView.VIEW_NAME,
-                VaadinIcon.EDIT.create());
+        menu.addView(TenantCrudView.class, TenantCrudView.VIEW_NAME,
+                VaadinIcon.LIST.create());
+        menu.addView(VMCrudView.class, VMCrudView.VIEW_NAME,
+                VaadinIcon.SERVER.create());
         menu.addView(AboutView.class, AboutView.VIEW_NAME,
                 VaadinIcon.INFO_CIRCLE.create());
 

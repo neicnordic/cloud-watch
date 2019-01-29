@@ -1,17 +1,10 @@
 package no.neic.cloudwatch.crud;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.OptionalParameter;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.*;
 import no.neic.cloudwatch.MainLayout;
 import no.neic.cloudwatch.backend.DataService;
 import no.neic.cloudwatch.backend.data.Product;
@@ -19,25 +12,25 @@ import no.neic.cloudwatch.backend.data.Product;
 /**
  * A view for performing create-read-update-delete operations on products.
  *
- * See also {@link SampleCrudLogic} for fetching the data, the actual CRUD
+ * See also {@link TenantCrudLogic} for fetching the data, the actual CRUD
  * operations and controlling the view based on events from outside.
  */
-@Route(value = "Inventory", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
-public class SampleCrudView extends HorizontalLayout
+@Route(value = "vms", layout = MainLayout.class)
+@RouteAlias(value = "vms", layout = MainLayout.class)
+public class VMCrudView extends HorizontalLayout
         implements HasUrlParameter<String> {
 
-    public static final String VIEW_NAME = "Inventory";
+    public static final String VIEW_NAME = "VMs";
     private ProductGrid grid;
-    private ProductForm form;
+//    private ProductForm form;
     private TextField filter;
 
-    private SampleCrudLogic viewLogic = new SampleCrudLogic(this);
-    private Button newProduct;
+    private VMCrudLogic viewLogic = new VMCrudLogic(this);
+//    private Button newProduct;
 
     private ProductDataProvider dataProvider = new ProductDataProvider();
 
-    public SampleCrudView() {
+    public VMCrudView() {
         setSizeFull();
         HorizontalLayout topLayout = createTopBar();
 
@@ -46,8 +39,8 @@ public class SampleCrudView extends HorizontalLayout
         grid.asSingleSelect().addValueChangeListener(
                 event -> viewLogic.rowSelected(event.getValue()));
 
-        form = new ProductForm(viewLogic);
-        form.setCategories(DataService.get().getAllCategories());
+//        form = new ProductForm(viewLogic);
+//        form.setCategories(DataService.get().getAllCategories());
 
         VerticalLayout barAndGridLayout = new VerticalLayout();
         barAndGridLayout.add(topLayout);
@@ -58,7 +51,7 @@ public class SampleCrudView extends HorizontalLayout
         barAndGridLayout.expand(grid);
 
         add(barAndGridLayout);
-        add(form);
+//        add(form);
 
         viewLogic.init();
     }
@@ -69,15 +62,15 @@ public class SampleCrudView extends HorizontalLayout
         // Apply the filter to grid's data provider. TextField value is never null
         filter.addValueChangeListener(event -> dataProvider.setFilter(event.getValue()));
 
-        newProduct = new Button("New product");
-        newProduct.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        newProduct.setIcon(VaadinIcon.PLUS_CIRCLE.create());
-        newProduct.addClickListener(click -> viewLogic.newProduct());
+//        newProduct = new Button("New product");
+//        newProduct.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+//        newProduct.setIcon(VaadinIcon.PLUS_CIRCLE.create());
+//        newProduct.addClickListener(click -> viewLogic.newProduct());
 
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setWidth("100%");
         topLayout.add(filter);
-        topLayout.add(newProduct);
+//        topLayout.add(newProduct);
         topLayout.setVerticalComponentAlignment(Alignment.START, filter);
         topLayout.expand(filter);
         return topLayout;
@@ -91,9 +84,9 @@ public class SampleCrudView extends HorizontalLayout
         Notification.show(msg);
     }
 
-    public void setNewProductEnabled(boolean enabled) {
-        newProduct.setEnabled(enabled);
-    }
+//    public void setNewProductEnabled(boolean enabled) {
+//        newProduct.setEnabled(enabled);
+//    }
 
     public void clearSelection() {
         grid.getSelectionModel().deselectAll();
@@ -115,13 +108,13 @@ public class SampleCrudView extends HorizontalLayout
         dataProvider.delete(product);
     }
 
-    public void editProduct(Product product) {
-        showForm(product != null);
-        form.editProduct(product);
-    }
+//    public void editProduct(Product product) {
+//        showForm(product != null);
+//        form.editProduct(product);
+//    }
 
     public void showForm(boolean show) {
-        form.setVisible(show);
+//        form.setVisible(show);
 
         /* FIXME The following line should be uncommented when the CheckboxGroup
          * issue is resolved. The category CheckboxGroup throws an

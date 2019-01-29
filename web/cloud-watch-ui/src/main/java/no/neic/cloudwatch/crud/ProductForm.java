@@ -44,7 +44,7 @@ public class ProductForm extends Div {
     private Button cancel;
     private Button delete;
 
-    private SampleCrudLogic viewLogic;
+    private TenantCrudLogic viewLogic;
     private Binder<Product> binder;
     private Product currentProduct;
 
@@ -88,14 +88,14 @@ public class ProductForm extends Div {
         }
     }
 
-    public ProductForm(SampleCrudLogic sampleCrudLogic) {
+    public ProductForm(TenantCrudLogic tenantCrudLogic) {
         setClassName("product-form");
 
         content = new VerticalLayout();
         content.setSizeUndefined();
         add(content);
 
-        viewLogic = sampleCrudLogic;
+        viewLogic = tenantCrudLogic;
 
         productName = new TextField("Product name");
         productName.setWidth("100%");
@@ -160,8 +160,8 @@ public class ProductForm extends Div {
 
         discard = new Button("Discard changes");
         discard.setWidth("100%");
-        discard.addClickListener(
-                event -> viewLogic.editProduct(currentProduct));
+//        discard.addClickListener(
+//                event -> viewLogic.editProduct(currentProduct));
 
         cancel = new Button("Cancel");
         cancel.setWidth("100%");

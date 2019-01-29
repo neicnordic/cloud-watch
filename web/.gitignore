@@ -181,5 +181,7 @@ hs_err_pid*
 ### Vaadin ###
 .vaadin-designer
 .designer
+web.xml
+*.jsp
 
 # End of https://www.gitignore.io/api/java,vaadin,eclipse,intellij+all
