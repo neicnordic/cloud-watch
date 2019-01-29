@@ -1,10 +1,12 @@
 package no.neic.cloudwatch.backend.mock;
 
-import java.util.List;
-
 import no.neic.cloudwatch.backend.DataService;
-import no.neic.cloudwatch.backend.data.Category;
-import no.neic.cloudwatch.backend.data.Product;
+import no.neic.cloudwatch.backend.data.Region;
+import no.neic.cloudwatch.backend.data.Tenant;
+import no.neic.cloudwatch.backend.data.VM;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Mock data model. This implementation has very simplistic locking and does not
@@ -14,14 +16,14 @@ public class MockDataService extends DataService {
 
     private static MockDataService INSTANCE;
 
-    private List<Product> products;
-    private List<Category> categories;
-    private int nextProductId = 0;
+    private List<Tenant> tenants;
+    private List<Region> regions;
+    private List<VM> vms;
 
     private MockDataService() {
-        categories = MockDataGenerator.createCategories();
-        products = MockDataGenerator.createProducts(categories);
-        nextProductId = products.size() + 1;
+        regions = MockDataGenerator.createRegions();
+        tenants = MockDataGenerator.createTenants(regions);
+        vms = MockDataGenerator.createVMs(tenants);
     }
 
     public synchronized static DataService getInstance() {
@@ -32,52 +34,38 @@ public class MockDataService extends DataService {
     }
 
     @Override
-    public synchronized List<Product> getAllProducts() {
-        return products;
+    public synchronized List<Tenant> getAllTenants() {
+        return tenants;
     }
 
     @Override
-    public synchronized List<Category> getAllCategories() {
-        return categories;
+    public synchronized List<Region> getAllRegions() {
+        return regions;
     }
 
     @Override
-    public synchronized void updateProduct(Product p) {
-        if (p.getId() < 0) {
-            // New product
-            p.setId(nextProductId++);
-            products.add(p);
-            return;
-        }
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getId() == p.getId()) {
-                products.set(i, p);
-                return;
-            }
-        }
-
-        throw new IllegalArgumentException("No product with id " + p.getId()
-                + " found");
+    public Collection<VM> getAllVMs() {
+        return vms;
     }
 
     @Override
-    public synchronized Product getProductById(int productId) {
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getId() == productId) {
-                return products.get(i);
+    public synchronized Tenant getTenantById(int tenantId) {
+        for (Tenant tenant : tenants) {
+            if (tenant.getId() == tenantId) {
+                return tenant;
             }
         }
         return null;
     }
 
     @Override
-    public synchronized void deleteProduct(int productId) {
-        Product p = getProductById(productId);
-        if (p == null) {
-            throw new IllegalArgumentException("Product with id " + productId
-                    + " not found");
+    public VM getVMById(int vmId) {
+        for (VM vm : vms) {
+            if (vm.getId() == vmId) {
+                return vm;
+            }
         }
-        products.remove(p);
+        return null;
     }
 
 }

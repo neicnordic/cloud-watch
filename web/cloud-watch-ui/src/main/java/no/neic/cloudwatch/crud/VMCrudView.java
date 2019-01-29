@@ -7,7 +7,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import no.neic.cloudwatch.MainLayout;
 import no.neic.cloudwatch.backend.DataService;
-import no.neic.cloudwatch.backend.data.Product;
+import no.neic.cloudwatch.backend.data.Tenant;
+import no.neic.cloudwatch.backend.data.VM;
 
 /**
  * A view for performing create-read-update-delete operations on products.
@@ -21,26 +22,25 @@ public class VMCrudView extends HorizontalLayout
         implements HasUrlParameter<String> {
 
     public static final String VIEW_NAME = "VMs";
-    private ProductGrid grid;
-//    private ProductForm form;
+    private VMGrid grid;
+    private VMForm form;
     private TextField filter;
 
     private VMCrudLogic viewLogic = new VMCrudLogic(this);
-//    private Button newProduct;
 
-    private ProductDataProvider dataProvider = new ProductDataProvider();
+    private VMDataProvider dataProvider = new VMDataProvider();
 
     public VMCrudView() {
         setSizeFull();
         HorizontalLayout topLayout = createTopBar();
 
-        grid = new ProductGrid();
+        grid = new VMGrid();
         grid.setDataProvider(dataProvider);
         grid.asSingleSelect().addValueChangeListener(
                 event -> viewLogic.rowSelected(event.getValue()));
 
-//        form = new ProductForm(viewLogic);
-//        form.setCategories(DataService.get().getAllCategories());
+        form = new VMForm(viewLogic);
+        form.setRegions(DataService.get().getAllRegions());
 
         VerticalLayout barAndGridLayout = new VerticalLayout();
         barAndGridLayout.add(topLayout);
@@ -51,7 +51,7 @@ public class VMCrudView extends HorizontalLayout
         barAndGridLayout.expand(grid);
 
         add(barAndGridLayout);
-//        add(form);
+        add(form);
 
         viewLogic.init();
     }
@@ -62,65 +62,29 @@ public class VMCrudView extends HorizontalLayout
         // Apply the filter to grid's data provider. TextField value is never null
         filter.addValueChangeListener(event -> dataProvider.setFilter(event.getValue()));
 
-//        newProduct = new Button("New product");
-//        newProduct.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-//        newProduct.setIcon(VaadinIcon.PLUS_CIRCLE.create());
-//        newProduct.addClickListener(click -> viewLogic.newProduct());
-
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setWidth("100%");
         topLayout.add(filter);
-//        topLayout.add(newProduct);
         topLayout.setVerticalComponentAlignment(Alignment.START, filter);
         topLayout.expand(filter);
         return topLayout;
     }
 
-    public void showError(String msg) {
-        Notification.show(msg);
-    }
-
-    public void showSaveNotification(String msg) {
-        Notification.show(msg);
-    }
-
-//    public void setNewProductEnabled(boolean enabled) {
-//        newProduct.setEnabled(enabled);
-//    }
-
     public void clearSelection() {
         grid.getSelectionModel().deselectAll();
     }
 
-    public void selectRow(Product row) {
+    public void selectRow(VM row) {
         grid.getSelectionModel().select(row);
     }
 
-    public Product getSelectedRow() {
-        return grid.getSelectedRow();
+    public void editVM(VM vm) {
+        showForm(vm != null);
+        form.editVM(vm);
     }
-
-    public void updateProduct(Product product) {
-        dataProvider.save(product);
-    }
-
-    public void removeProduct(Product product) {
-        dataProvider.delete(product);
-    }
-
-//    public void editProduct(Product product) {
-//        showForm(product != null);
-//        form.editProduct(product);
-//    }
 
     public void showForm(boolean show) {
-//        form.setVisible(show);
-
-        /* FIXME The following line should be uncommented when the CheckboxGroup
-         * issue is resolved. The category CheckboxGroup throws an
-         * IllegalArgumentException when the form is disabled.
-         */
-        //form.setEnabled(show);
+        form.setVisible(show);
     }
 
     @Override
