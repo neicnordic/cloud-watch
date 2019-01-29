@@ -12,6 +12,7 @@ config = {
         'flask',
         'configparser',
         'connexion',
+        'connexion[swagger-ui]'
     ],
     'packages': ['api'],
     'scripts': [],
