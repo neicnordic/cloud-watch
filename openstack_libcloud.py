@@ -71,10 +71,9 @@ def load_data(path):
         return {}
 
 def load_credentials():
-    """ load default data """
-    # Load project default data
-    data = load_data(os.path.abspath('defaults.yaml'))
-    return data
+    """ load credentials data """
+    credentials = load_data(os.path.abspath('config.yaml'))
+    return credentials
 
 def get_openstack_libcloud():
     credentials = load_credentials()
@@ -82,13 +81,16 @@ def get_openstack_libcloud():
     OpenStack = get_driver(Provider.OPENSTACK)
     driver = OpenStack(credentials['user'], credentials['password'],
                    ex_force_auth_url=credentials['auth_url'],
-                   ex_force_auth_version=credentials['user'])
-
+                   ex_force_auth_version=credentials['version'])
     return driver
 
+def get_openstack_sizes(driver):
+    return driver.list_sizes()[0]
+
 def main():
-    result = get_openstack_libcloud()
-    print result
+    driver = get_openstack_libcloud()
+    sizes = get_openstack_sizes(driver)
+    print sizes
 
 if __name__ == '__main__':
     main()
