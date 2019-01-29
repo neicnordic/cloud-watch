@@ -1,0 +1,70 @@
+swagger: '2.0'
+info:
+  description: |
+    API for the cloud-watch client
+  version: 1.0.0
+  title: Cloud Watch
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: MIT
+    url: URL
+# host: petstore.swagger.io
+# basePath: /v2
+tags:
+- name: vms
+  description: Everything about your VMS
+  externalDocs:
+    description: Find out more
+    url: http://swagger.io
+# schemes:
+# - http
+paths:
+  /tenants:
+    get:
+      tags:
+      - vms
+      summary: Finds all tenants
+      description: Gives a list of all tenants, with information about names, regions and clould provider.
+      operationId: tenants
+      produces:
+      - application/json
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Vm'
+        400:
+          description: Invalid status value
+definitions:
+  Tenant:
+    type: object
+    properties:
+      id:
+        type: string
+      provider:
+        type: string
+      region:
+        type: string
+  Vm:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      creation_time:
+        type: string
+        format: date-time
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /cloud-watch/cloud-api/1.0.0
+schemes:
+ - https
+ - http
