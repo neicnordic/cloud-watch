@@ -71,7 +71,6 @@ def load_data(path):
 def load_credentials():
     """ load credentials data """
     credentials = load_data(os.path.abspath('config.yaml'))
-    print credentials
     return credentials
 
 def get_openstack_libcloud():
@@ -86,13 +85,13 @@ def get_openstack_libcloud():
                    ex_force_auth_version=credentials['version'])
     return driver
 
-def get_openstack_sizes(driver):
-    return driver.list_sizes()[0]
+def get_openstack_nodes(driver):
+    return driver.list_nodes()
 
 def main():
     driver = get_openstack_libcloud()
-    sizes = get_openstack_sizes(driver)
-    print sizes
+    nodes = get_openstack_nodes(driver)
+    print nodes[0]
 
 if __name__ == '__main__':
     main()
