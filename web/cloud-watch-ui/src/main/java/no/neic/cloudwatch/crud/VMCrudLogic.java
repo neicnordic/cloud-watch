@@ -77,22 +77,6 @@ public class VMCrudLogic implements Serializable {
         return DataService.get().getVMById(vmId);
     }
 
-//    public void saveProduct(Tenant tenant) {
-//        boolean newProduct = tenant.isNewProduct();
-//        view.clearSelection();
-//        view.updateProduct(tenant);
-//        setFragmentParameter("");
-//        view.showSaveNotification(tenant.getName()
-//                + (newProduct ? " created" : " updated"));
-//    }
-
-//    public void deleteProduct(Tenant tenant) {
-//        view.clearSelection();
-//        view.removeProduct(tenant);
-//        setFragmentParameter("");
-//        view.showSaveNotification(tenant.getName() + " removed");
-//    }
-
     public void editVM(VM vm) {
         if (vm == null) {
             setFragmentParameter("");
@@ -101,12 +85,6 @@ public class VMCrudLogic implements Serializable {
         }
         view.editVM(vm);
     }
-
-//    public void newProduct() {
-//        view.clearSelection();
-//        setFragmentParameter("new");
-//        view.editTenant(new Tenant());
-//    }
 
     public void rowSelected(VM vm) {
         if (AccessControlFactory.getInstance().createAccessControl()

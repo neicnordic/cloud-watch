@@ -59,8 +59,4 @@ public class VM implements Serializable {
         this.region = region;
     }
 
-    public boolean isNewProduct() {
-        return getId() == -1;
-    }
-
 }

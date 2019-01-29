@@ -75,7 +75,8 @@ public class MockDataGenerator {
         Tenant tenant = new Tenant();
         tenant.setId(nextProductId++);
         tenant.setName(generateName());
-        tenant.setRegion(getRegion(categories, 1, 1));
+        tenant.setRegion(getRegion(categories));
+        tenant.setSource("OpenStack");
         tenant.setVmsRunning(random.nextInt(10));
         return tenant;
     }
@@ -84,14 +85,14 @@ public class MockDataGenerator {
         VM vm = new VM();
         vm.setId(nextVMId++);
         vm.setName(generateName());
-        vm.setRegion(getRegion(categories, 1, 1));
+        vm.setRegion(getRegion(categories));
         vm.setFlavour("x-large");
         vm.setStatus(Status.RUNNING);
         return vm;
     }
 
-    private static Region getRegion(List<Region> categories, int min, int max) {
-        int nr = random.nextInt(max) + min;
+    private static Region getRegion(List<Region> categories) {
+        int nr = random.nextInt(1) + 1;
         HashSet<Region> productCategories = new HashSet<>();
         for (int i = 0; i < nr; i++) {
             productCategories.add(categories.get(random.nextInt(categories.size())));
