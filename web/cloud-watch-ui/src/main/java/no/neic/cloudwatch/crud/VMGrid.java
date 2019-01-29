@@ -46,6 +46,10 @@ public class VMGrid extends Grid<VM> {
                 .setHeader("Region")
                 .setComparator(Comparator.comparing(vm -> vm.getRegion().getName()))
                 .setFlexGrow(12);
+
+
+        final String tenantTemplate = "<iron-icon icon=\"vaadin:circle\" class-name=\"[[item.tenant]]\"></iron-icon> [[item.tenant]]";
+        addColumn(TemplateRenderer.<VM>of(tenantTemplate).withProperty("tenant", vm -> vm.getTenant().getName())).setHeader("Tenant").setComparator(Comparator.comparing(vm -> vm.getTenant().getName())).setFlexGrow(8);
     }
 
     private String formatRegions(VM vm) {
