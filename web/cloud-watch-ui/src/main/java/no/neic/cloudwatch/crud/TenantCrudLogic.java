@@ -4,7 +4,7 @@ import com.vaadin.flow.component.UI;
 import no.neic.cloudwatch.authentication.AccessControl;
 import no.neic.cloudwatch.authentication.AccessControlFactory;
 import no.neic.cloudwatch.backend.DataService;
-import no.neic.cloudwatch.backend.data.Product;
+import no.neic.cloudwatch.backend.data.Tenant;
 
 import java.io.Serializable;
 
@@ -26,7 +26,7 @@ public class TenantCrudLogic implements Serializable {
     }
 
     public void init() {
-//        editProduct(null);
+        editTenant(null);
         // Hide and disable if not admin
         if (!AccessControlFactory.getInstance().createAccessControl()
                 .isUserInRole(AccessControl.ADMIN_ROLE_NAME)) {
@@ -62,8 +62,8 @@ public class TenantCrudLogic implements Serializable {
                 // login
                 try {
                     int pid = Integer.parseInt(productId);
-                    Product product = findProduct(pid);
-                    view.selectRow(product);
+                    Tenant tenant = findTenant(pid);
+                    view.selectRow(tenant);
                 } catch (NumberFormatException e) {
                 }
             }
@@ -72,45 +72,45 @@ public class TenantCrudLogic implements Serializable {
         }
     }
 
-    private Product findProduct(int productId) {
-        return DataService.get().getProductById(productId);
+    private Tenant findTenant(int tenantId) {
+        return DataService.get().getTenantById(tenantId);
     }
 
-    public void saveProduct(Product product) {
-        boolean newProduct = product.isNewProduct();
-        view.clearSelection();
-        view.updateProduct(product);
-        setFragmentParameter("");
-        view.showSaveNotification(product.getProductName()
-                + (newProduct ? " created" : " updated"));
-    }
-
-    public void deleteProduct(Product product) {
-        view.clearSelection();
-        view.removeProduct(product);
-        setFragmentParameter("");
-        view.showSaveNotification(product.getProductName() + " removed");
-    }
-
-//    public void editProduct(Product product) {
-//        if (product == null) {
-//            setFragmentParameter("");
-//        } else {
-//            setFragmentParameter(product.getId() + "");
-//        }
-//        view.editProduct(product);
+//    public void saveProduct(Tenant tenant) {
+//        boolean newProduct = tenant.isNewProduct();
+//        view.clearSelection();
+//        view.updateProduct(tenant);
+//        setFragmentParameter("");
+//        view.showSaveNotification(tenant.getName()
+//                + (newProduct ? " created" : " updated"));
 //    }
+
+//    public void deleteProduct(Tenant tenant) {
+//        view.clearSelection();
+//        view.removeProduct(tenant);
+//        setFragmentParameter("");
+//        view.showSaveNotification(tenant.getName() + " removed");
+//    }
+
+    public void editTenant(Tenant tenant) {
+        if (tenant == null) {
+            setFragmentParameter("");
+        } else {
+            setFragmentParameter(tenant.getId() + "");
+        }
+        view.editTenant(tenant);
+    }
 
 //    public void newProduct() {
 //        view.clearSelection();
 //        setFragmentParameter("new");
-//        view.editProduct(new Product());
+//        view.editTenant(new Tenant());
 //    }
 
-    public void rowSelected(Product product) {
+    public void rowSelected(Tenant tenant) {
         if (AccessControlFactory.getInstance().createAccessControl()
                 .isUserInRole(AccessControl.ADMIN_ROLE_NAME)) {
-//            editProduct(product);
+            editTenant(tenant);
         }
     }
 

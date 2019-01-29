@@ -1,8 +1,5 @@
 package no.neic.cloudwatch.crud;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -14,7 +11,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import no.neic.cloudwatch.MainLayout;
 import no.neic.cloudwatch.backend.DataService;
-import no.neic.cloudwatch.backend.data.Product;
+import no.neic.cloudwatch.backend.data.Tenant;
 
 /**
  * A view for performing create-read-update-delete operations on products.
@@ -28,26 +25,26 @@ public class TenantCrudView extends HorizontalLayout
         implements HasUrlParameter<String> {
 
     public static final String VIEW_NAME = "Tenants";
-    private ProductGrid grid;
-//    private ProductForm form;
+    private TenantGrid grid;
+    private TenantForm form;
     private TextField filter;
 
     private TenantCrudLogic viewLogic = new TenantCrudLogic(this);
 //    private Button newProduct;
 
-    private ProductDataProvider dataProvider = new ProductDataProvider();
+    private TenantDataProvider dataProvider = new TenantDataProvider();
 
     public TenantCrudView() {
         setSizeFull();
         HorizontalLayout topLayout = createTopBar();
 
-        grid = new ProductGrid();
+        grid = new TenantGrid();
         grid.setDataProvider(dataProvider);
         grid.asSingleSelect().addValueChangeListener(
                 event -> viewLogic.rowSelected(event.getValue()));
 
-//        form = new ProductForm(viewLogic);
-//        form.setCategories(DataService.get().getAllCategories());
+        form = new TenantForm(viewLogic);
+        form.setRegions(DataService.get().getAllRegions());
 
         VerticalLayout barAndGridLayout = new VerticalLayout();
         barAndGridLayout.add(topLayout);
@@ -58,7 +55,7 @@ public class TenantCrudView extends HorizontalLayout
         barAndGridLayout.expand(grid);
 
         add(barAndGridLayout);
-//        add(form);
+        add(form);
 
         viewLogic.init();
     }
@@ -99,29 +96,29 @@ public class TenantCrudView extends HorizontalLayout
         grid.getSelectionModel().deselectAll();
     }
 
-    public void selectRow(Product row) {
+    public void selectRow(Tenant row) {
         grid.getSelectionModel().select(row);
     }
 
-    public Product getSelectedRow() {
+    public Tenant getSelectedRow() {
         return grid.getSelectedRow();
     }
 
-    public void updateProduct(Product product) {
-        dataProvider.save(product);
-    }
-
-    public void removeProduct(Product product) {
-        dataProvider.delete(product);
-    }
-
-//    public void editProduct(Product product) {
-//        showForm(product != null);
-//        form.editProduct(product);
+//    public void updateProduct(Tenant tenant) {
+//        dataProvider.save(tenant);
 //    }
 
+//    public void removeProduct(Tenant tenant) {
+//        dataProvider.delete(tenant);
+//    }
+
+    public void editTenant(Tenant tenant) {
+        showForm(tenant != null);
+        form.editProduct(tenant);
+    }
+
     public void showForm(boolean show) {
-//        form.setVisible(show);
+        form.setVisible(show);
 
         /* FIXME The following line should be uncommented when the CheckboxGroup
          * issue is resolved. The category CheckboxGroup throws an
