@@ -17,20 +17,20 @@ import java.io.Serializable;
  * the system separately, and to e.g. provide alternative views for the same
  * data.
  */
-public class SampleCrudLogic implements Serializable {
+public class TenantCrudLogic implements Serializable {
 
-    private SampleCrudView view;
+    private TenantCrudView view;
 
-    public SampleCrudLogic(SampleCrudView simpleCrudView) {
+    public TenantCrudLogic(TenantCrudView simpleCrudView) {
         view = simpleCrudView;
     }
 
     public void init() {
-        editProduct(null);
+//        editProduct(null);
         // Hide and disable if not admin
         if (!AccessControlFactory.getInstance().createAccessControl()
                 .isUserInRole(AccessControl.ADMIN_ROLE_NAME)) {
-            view.setNewProductEnabled(false);
+//            view.setNewProductEnabled(false);
         }
     }
 
@@ -50,13 +50,13 @@ public class SampleCrudLogic implements Serializable {
             fragmentParameter = productId;
         }
 
-        UI.getCurrent().navigate(SampleCrudView.class, fragmentParameter);
+        UI.getCurrent().navigate(TenantCrudView.class, fragmentParameter);
     }
 
     public void enter(String productId) {
         if (productId != null && !productId.isEmpty()) {
             if (productId.equals("new")) {
-                newProduct();
+//                newProduct();
             } else {
                 // Ensure this is selected even if coming directly here from
                 // login
@@ -92,25 +92,25 @@ public class SampleCrudLogic implements Serializable {
         view.showSaveNotification(product.getProductName() + " removed");
     }
 
-    public void editProduct(Product product) {
-        if (product == null) {
-            setFragmentParameter("");
-        } else {
-            setFragmentParameter(product.getId() + "");
-        }
-        view.editProduct(product);
-    }
+//    public void editProduct(Product product) {
+//        if (product == null) {
+//            setFragmentParameter("");
+//        } else {
+//            setFragmentParameter(product.getId() + "");
+//        }
+//        view.editProduct(product);
+//    }
 
-    public void newProduct() {
-        view.clearSelection();
-        setFragmentParameter("new");
-        view.editProduct(new Product());
-    }
+//    public void newProduct() {
+//        view.clearSelection();
+//        setFragmentParameter("new");
+//        view.editProduct(new Product());
+//    }
 
     public void rowSelected(Product product) {
         if (AccessControlFactory.getInstance().createAccessControl()
                 .isUserInRole(AccessControl.ADMIN_ROLE_NAME)) {
-            editProduct(product);
+//            editProduct(product);
         }
     }
 

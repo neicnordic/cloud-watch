@@ -1,3 +1,4 @@
+---
 swagger: '2.0'
 info:
   description: |
@@ -10,24 +11,24 @@ info:
   license:
     name: MIT
     url: URL
-# host: petstore.swagger.io
-# basePath: /v2
+
+basePath: /v1
+
 tags:
 - name: vms
   description: Everything about your VMS
   externalDocs:
     description: Find out more
     url: http://swagger.io
-# schemes:
-# - http
+
 paths:
   /tenants:
     get:
+      operationId: api.tenants.get
       tags:
       - vms
       summary: Finds all tenants
       description: Gives a list of all tenants, with information about names, regions and clould provider.
-      operationId: tenants
       produces:
       - application/json
       responses:
@@ -39,6 +40,7 @@ paths:
               $ref: '#/definitions/Vm'
         400:
           description: Invalid status value
+
 definitions:
   Tenant:
     type: object
@@ -59,12 +61,3 @@ definitions:
       creation_time:
         type: string
         format: date-time
-externalDocs:
-  description: Find out more about Swagger
-  url: http://swagger.io
-# Added by API Auto Mocking Plugin
-host: virtserver.swaggerhub.com
-basePath: /cloud-watch/cloud-api/1.0.0
-schemes:
- - https
- - http
