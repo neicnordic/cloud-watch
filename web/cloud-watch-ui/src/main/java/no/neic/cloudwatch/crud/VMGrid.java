@@ -27,8 +27,8 @@ public class VMGrid extends Grid<VM> {
         decimalFormat.setMinimumFractionDigits(2);
 
         // To change the text alignment of the column, a template is used.
-        final String priceTemplate = "<div style='text-align: right'>[[item.flavour]]</div>";
-        addColumn(TemplateRenderer.<VM>of(priceTemplate)
+        final String flavourTemplate = "<div>[[item.flavour]]</div>";
+        addColumn(TemplateRenderer.<VM>of(flavourTemplate)
                 .withProperty("flavour", VM::getFlavour))
                 .setHeader("Flavour")
                 .setComparator(Comparator.comparing(VM::getFlavour))
@@ -45,10 +45,10 @@ public class VMGrid extends Grid<VM> {
         addColumn(this::formatRegions)
                 .setHeader("Region")
                 .setComparator(Comparator.comparing(vm -> vm.getRegion().getName()))
-                .setFlexGrow(12);
+                .setFlexGrow(4);
 
 
-        final String tenantTemplate = "<iron-icon icon=\"vaadin:circle\" class-name=\"[[item.tenant]]\"></iron-icon> [[item.tenant]]";
+        final String tenantTemplate = "<div>[[item.tenant]]</div>";
         addColumn(TemplateRenderer.<VM>of(tenantTemplate).withProperty("tenant", vm -> vm.getTenant().getName())).setHeader("Tenant").setComparator(Comparator.comparing(vm -> vm.getTenant().getName())).setFlexGrow(8);
     }
 
