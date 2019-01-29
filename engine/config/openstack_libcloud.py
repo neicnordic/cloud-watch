@@ -85,7 +85,7 @@ def get_openstack_nodes(driver):
 def main():
     driver = get_openstack_libcloud()
     nodes = get_openstack_nodes(driver)
-    print (nodes[0])
+    print (nodes[0].created_at)
 
 if __name__ == '__main__':
     main()
