@@ -91,9 +91,9 @@ public class LoginScreen extends FlexLayout {
         VerticalLayout loginInformation = new VerticalLayout();
         loginInformation.setClassName("login-information");
 
-        H1 loginInfoHeader = new H1("Login Information");
+        H1 loginInfoHeader = new H1("Cloud Watch");
         Span loginInfoText = new Span(
-                "Log in as \"admin\" to have full access. Log in with any other username to have read-only access. For all users, any password is fine.");
+                "Aggregated dashboard for all of your cloud providers!");
         loginInformation.add(loginInfoHeader);
         loginInformation.add(loginInfoText);
 
