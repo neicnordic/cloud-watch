@@ -1,11 +1,49 @@
-Problem
+# Problem
 
-Stats
+We have a lot of virtual machines running in different clouds, and honestly do
+you remember the server you span up on a slow friday afternoon to try to
+figure out how this logstash thing that everyone was talking about years ago
+works.
 
-Manual Checking
 
-Solution
+# Stats
 
-Demo
+Here is some statistics,
 
-Impact
+ - 1/3 of all machines in clouds sit comatose
+ - 1 cpu running for one year is the equivalent burning 400 liters of petrol
+
+
+# Manual Checking
+
+Manual checking is a pain
+
+
+# Solution
+
+Our solution to this is to develop a tool that can show us all the machines we
+have running in different clouds.
+
+Developed in a client-server model to enable several different frontends such
+as web, cli and so forth.
+
+
+# Demo
+
+This is the demo of the webui. Here you can see the different types of
+resources that you can query.
+
+Tenants and VMs are the two toplevel entities to get information about.
+
+Here is the list of tenants, you can see the region, and how much resources
+you have booked.
+
+
+And over here, we can see a list of all running vms, when they were created
+their name and how much resouces they have booked. And here we can see that
+johan-test has been running for 3 months.
+
+
+# Impact
+
+With this we hope to be able to both save some trees and time for geeks like us.
