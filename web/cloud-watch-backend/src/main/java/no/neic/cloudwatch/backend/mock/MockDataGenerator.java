@@ -55,10 +55,10 @@ public class MockDataGenerator {
         return tenants;
     }
 
-    static List<VM> createVMs(List<Region> regions) {
+    static List<VM> createVMs(List<Tenant> tenants) {
         List<VM> vms = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            VM vm = createVM(regions);
+            VM vm = createVM(tenants);
             vms.add(vm);
         }
 
@@ -71,21 +71,23 @@ public class MockDataGenerator {
         return region;
     }
 
-    private static Tenant createTenant(List<Region> categories) {
+    private static Tenant createTenant(List<Region> regions) {
         Tenant tenant = new Tenant();
         tenant.setId(nextProductId++);
         tenant.setName(generateName());
-        tenant.setRegion(getRegion(categories));
+        tenant.setRegion(getRegion(regions));
         tenant.setSource("OpenStack");
         tenant.setVmsRunning(random.nextInt(10));
         return tenant;
     }
 
-    private static VM createVM(List<Region> categories) {
+    private static VM createVM(List<Tenant> tenants) {
         VM vm = new VM();
         vm.setId(nextVMId++);
         vm.setName(generateName());
-        vm.setRegion(getRegion(categories));
+        Tenant tenant = getTenant(tenants);
+        vm.setTenant(tenant);
+        vm.setTenant(tenant);
         vm.setFlavour("x-large");
         vm.setStatus(Status.RUNNING);
         return vm;
@@ -96,6 +98,16 @@ public class MockDataGenerator {
         HashSet<Region> productCategories = new HashSet<>();
         for (int i = 0; i < nr; i++) {
             productCategories.add(categories.get(random.nextInt(categories.size())));
+        }
+
+        return productCategories.iterator().next();
+    }
+
+    private static Tenant getTenant(List<Tenant> tenants) {
+        int nr = random.nextInt(1) + 1;
+        HashSet<Tenant> productCategories = new HashSet<>();
+        for (int i = 0; i < nr; i++) {
+            productCategories.add(tenants.get(random.nextInt(tenants.size())));
         }
 
         return productCategories.iterator().next();

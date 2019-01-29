@@ -23,7 +23,7 @@ public class MockDataService extends DataService {
     private MockDataService() {
         regions = MockDataGenerator.createRegions();
         tenants = MockDataGenerator.createTenants(regions);
-        vms = MockDataGenerator.createVMs(regions);
+        vms = MockDataGenerator.createVMs(tenants);
     }
 
     public synchronized static DataService getInstance() {
