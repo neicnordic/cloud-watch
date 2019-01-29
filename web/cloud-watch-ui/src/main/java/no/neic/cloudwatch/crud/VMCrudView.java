@@ -7,7 +7,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import no.neic.cloudwatch.MainLayout;
 import no.neic.cloudwatch.backend.DataService;
-import no.neic.cloudwatch.backend.data.Product;
+import no.neic.cloudwatch.backend.data.Tenant;
+import no.neic.cloudwatch.backend.data.VM;
 
 /**
  * A view for performing create-read-update-delete operations on products.
@@ -21,26 +22,26 @@ public class VMCrudView extends HorizontalLayout
         implements HasUrlParameter<String> {
 
     public static final String VIEW_NAME = "VMs";
-    private ProductGrid grid;
-//    private ProductForm form;
+    private VMGrid grid;
+    private VMForm form;
     private TextField filter;
 
     private VMCrudLogic viewLogic = new VMCrudLogic(this);
 //    private Button newProduct;
 
-    private ProductDataProvider dataProvider = new ProductDataProvider();
+    private VMDataProvider dataProvider = new VMDataProvider();
 
     public VMCrudView() {
         setSizeFull();
         HorizontalLayout topLayout = createTopBar();
 
-        grid = new ProductGrid();
+        grid = new VMGrid();
         grid.setDataProvider(dataProvider);
         grid.asSingleSelect().addValueChangeListener(
                 event -> viewLogic.rowSelected(event.getValue()));
 
-//        form = new ProductForm(viewLogic);
-//        form.setCategories(DataService.get().getAllCategories());
+        form = new VMForm(viewLogic);
+        form.setRegions(DataService.get().getAllRegions());
 
         VerticalLayout barAndGridLayout = new VerticalLayout();
         barAndGridLayout.add(topLayout);
@@ -51,7 +52,7 @@ public class VMCrudView extends HorizontalLayout
         barAndGridLayout.expand(grid);
 
         add(barAndGridLayout);
-//        add(form);
+        add(form);
 
         viewLogic.init();
     }
@@ -92,29 +93,29 @@ public class VMCrudView extends HorizontalLayout
         grid.getSelectionModel().deselectAll();
     }
 
-    public void selectRow(Product row) {
+    public void selectRow(VM row) {
         grid.getSelectionModel().select(row);
     }
 
-    public Product getSelectedRow() {
+    public VM getSelectedRow() {
         return grid.getSelectedRow();
     }
 
-    public void updateProduct(Product product) {
-        dataProvider.save(product);
-    }
-
-    public void removeProduct(Product product) {
-        dataProvider.delete(product);
-    }
-
-//    public void editProduct(Product product) {
-//        showForm(product != null);
-//        form.editProduct(product);
+//    public void updateProduct(Tenant tenant) {
+//        dataProvider.save(tenant);
 //    }
 
+//    public void removeProduct(Tenant tenant) {
+//        dataProvider.delete(tenant);
+//    }
+
+    public void editVM(VM vm) {
+        showForm(vm != null);
+        form.editVM(vm);
+    }
+
     public void showForm(boolean show) {
-//        form.setVisible(show);
+        form.setVisible(show);
 
         /* FIXME The following line should be uncommented when the CheckboxGroup
          * issue is resolved. The category CheckboxGroup throws an

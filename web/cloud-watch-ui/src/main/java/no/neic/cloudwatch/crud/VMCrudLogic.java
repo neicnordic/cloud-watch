@@ -4,7 +4,8 @@ import com.vaadin.flow.component.UI;
 import no.neic.cloudwatch.authentication.AccessControl;
 import no.neic.cloudwatch.authentication.AccessControlFactory;
 import no.neic.cloudwatch.backend.DataService;
-import no.neic.cloudwatch.backend.data.Product;
+import no.neic.cloudwatch.backend.data.Tenant;
+import no.neic.cloudwatch.backend.data.VM;
 
 import java.io.Serializable;
 
@@ -12,7 +13,7 @@ import java.io.Serializable;
  * This class provides an interface for the logical operations between the CRUD
  * view, its parts like the product editor form and the data source, including
  * fetching and saving products.
- *
+ * <p>
  * Having this separate from the view makes it easier to test various parts of
  * the system separately, and to e.g. provide alternative views for the same
  * data.
@@ -26,7 +27,7 @@ public class VMCrudLogic implements Serializable {
     }
 
     public void init() {
-//        editProduct(null);
+        editVM(null);
         // Hide and disable if not admin
         if (!AccessControlFactory.getInstance().createAccessControl()
                 .isUserInRole(AccessControl.ADMIN_ROLE_NAME)) {
@@ -50,7 +51,7 @@ public class VMCrudLogic implements Serializable {
             fragmentParameter = productId;
         }
 
-        UI.getCurrent().navigate(TenantCrudView.class, fragmentParameter);
+        UI.getCurrent().navigate(VMCrudView.class, fragmentParameter);
     }
 
     public void enter(String productId) {
@@ -62,8 +63,8 @@ public class VMCrudLogic implements Serializable {
                 // login
                 try {
                     int pid = Integer.parseInt(productId);
-                    Product product = findProduct(pid);
-                    view.selectRow(product);
+                    VM vm = findVM(pid);
+                    view.selectRow(vm);
                 } catch (NumberFormatException e) {
                 }
             }
@@ -72,45 +73,45 @@ public class VMCrudLogic implements Serializable {
         }
     }
 
-    private Product findProduct(int productId) {
-        return DataService.get().getProductById(productId);
+    private VM findVM(int vmId) {
+        return DataService.get().getVMById(vmId);
     }
 
-    public void saveProduct(Product product) {
-        boolean newProduct = product.isNewProduct();
-        view.clearSelection();
-        view.updateProduct(product);
-        setFragmentParameter("");
-        view.showSaveNotification(product.getProductName()
-                + (newProduct ? " created" : " updated"));
-    }
-
-    public void deleteProduct(Product product) {
-        view.clearSelection();
-        view.removeProduct(product);
-        setFragmentParameter("");
-        view.showSaveNotification(product.getProductName() + " removed");
-    }
-
-//    public void editProduct(Product product) {
-//        if (product == null) {
-//            setFragmentParameter("");
-//        } else {
-//            setFragmentParameter(product.getId() + "");
-//        }
-//        view.editProduct(product);
+//    public void saveProduct(Tenant tenant) {
+//        boolean newProduct = tenant.isNewProduct();
+//        view.clearSelection();
+//        view.updateProduct(tenant);
+//        setFragmentParameter("");
+//        view.showSaveNotification(tenant.getName()
+//                + (newProduct ? " created" : " updated"));
 //    }
+
+//    public void deleteProduct(Tenant tenant) {
+//        view.clearSelection();
+//        view.removeProduct(tenant);
+//        setFragmentParameter("");
+//        view.showSaveNotification(tenant.getName() + " removed");
+//    }
+
+    public void editVM(VM vm) {
+        if (vm == null) {
+            setFragmentParameter("");
+        } else {
+            setFragmentParameter(vm.getId() + "");
+        }
+        view.editVM(vm);
+    }
 
 //    public void newProduct() {
 //        view.clearSelection();
 //        setFragmentParameter("new");
-//        view.editProduct(new Product());
+//        view.editTenant(new Tenant());
 //    }
 
-    public void rowSelected(Product product) {
+    public void rowSelected(VM vm) {
         if (AccessControlFactory.getInstance().createAccessControl()
                 .isUserInRole(AccessControl.ADMIN_ROLE_NAME)) {
-//            editProduct(product);
+            editVM(vm);
         }
     }
 

@@ -1,12 +1,12 @@
 package no.neic.cloudwatch.backend.data;
 
-public enum Availability {
+public enum Status {
 
-    COMING("Coming"), AVAILABLE("Available"), DISCONTINUED("Discontinued");
+    RUNNING("Running"), NOT_RUNNING("Not running");
 
     private final String name;
 
-    Availability(String name) {
+    Status(String name) {
         this.name = name;
     }
 

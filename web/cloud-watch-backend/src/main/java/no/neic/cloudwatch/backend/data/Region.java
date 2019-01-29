@@ -4,20 +4,9 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-public class Category implements Serializable {
+public class Region implements Serializable {
 
-    @NotNull
-    private int id;
-    @NotNull
     private String name;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
