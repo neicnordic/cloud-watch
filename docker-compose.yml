@@ -5,9 +5,9 @@ services:
   engine:
     image: dtitov/cloud-watch-engine:latest
     ports:
-    - "8800:8080"
+    - "8080:8080"
     volumes:
-    - engine/config/config.yml:/cloud-watch/engine/config/config.yml
+    - ${PWD}/engine/config/config.yml:/cloud-watch/engine/config/config.yml
 
   web:
     image: dtitov/cloud-watch-web:latest
