@@ -9,22 +9,35 @@ import java.util.Objects;
 
 public class VMDataProvider extends ListDataProvider<VM> {
 
-    /**
-     * Text filter that can be changed separately.
-     */
+    private String tenantFilterText = "";
+    private String regionFilterText = "";
     private String filterText = "";
 
     public VMDataProvider() {
         super(DataService.get().getAllVMs());
     }
 
-    /**
-     * Sets the filter to use for this data provider and refreshes data.
-     * <p>
-     * Filter is compared for product name, availability and category.
-     *
-     * @param filterText the text to filter by, never null
-     */
+    public void setTenantFilter(String filterText) {
+        Objects.requireNonNull(filterText, "Filter text cannot be null.");
+        if (Objects.equals(this.tenantFilterText, filterText.trim())) {
+            return;
+        }
+        this.tenantFilterText = filterText.trim();
+
+
+        updateFilter();
+    }
+
+    public void setRegionFilter(String filterText) {
+        Objects.requireNonNull(filterText, "Filter text cannot be null.");
+        if (Objects.equals(this.regionFilterText, filterText.trim())) {
+            return;
+        }
+        this.regionFilterText = filterText.trim();
+
+        updateFilter();
+    }
+
     public void setFilter(String filterText) {
         Objects.requireNonNull(filterText, "Filter text cannot be null.");
         if (Objects.equals(this.filterText, filterText.trim())) {
@@ -32,9 +45,14 @@ public class VMDataProvider extends ListDataProvider<VM> {
         }
         this.filterText = filterText.trim();
 
-        setFilter(tenant -> passesFilter(tenant.getName(), filterText)
-                || passesFilter(tenant.getFlavour(), filterText)
-                || passesFilter(tenant.getRegion(), filterText));
+        updateFilter();
+    }
+
+    private void updateFilter() {
+        setFilter(vm -> (passesFilter(vm.getName(), filterText)
+                || passesFilter(vm.getFlavour(), filterText)
+                || passesFilter(vm.getStatus(), filterText))
+        && passesFilter(vm.getTenant(), tenantFilterText) && passesFilter(vm.getRegion(), regionFilterText));
     }
 
     private boolean passesFilter(Object object, String filterText) {
