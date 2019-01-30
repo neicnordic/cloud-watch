@@ -1,21 +1,16 @@
 package no.neic.cloudwatch.crud;
 
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.OptionalParameter;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.*;
 import no.neic.cloudwatch.MainLayout;
 import no.neic.cloudwatch.backend.DataService;
 import no.neic.cloudwatch.backend.data.Tenant;
 
 /**
  * A view for performing create-read-update-delete operations on products.
- *
+ * <p>
  * See also {@link TenantCrudLogic} for fetching the data, the actual CRUD
  * operations and controlling the view based on events from outside.
  */
@@ -61,14 +56,14 @@ public class TenantCrudView extends HorizontalLayout
 
     public HorizontalLayout createTopBar() {
         filter = new TextField();
-        filter.setPlaceholder("Filter name, availability or category");
+        filter.setPlaceholder("Filter entries by typing here...");
         // Apply the filter to grid's data provider. TextField value is never null
         filter.addValueChangeListener(event -> dataProvider.setFilter(event.getValue()));
 
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setWidth("100%");
         topLayout.add(filter);
-        topLayout.setVerticalComponentAlignment(Alignment.START, filter);
+        topLayout.setVerticalComponentAlignment(Alignment.END, filter);
         topLayout.expand(filter);
         return topLayout;
     }
