@@ -55,7 +55,7 @@ def vms(url):
     x.align["Tenant"] = "l"
     x.align["Region"] = "l"
     for instance in data:
-        pp.pprint( instance )
+#        pp.pprint( instance )
         x.add_row( [ instance['id'], instance['name'], instance['public_ips'],
                      instance['state'], instance['created_at'],
                      instance['tenant'], instance['region']] )
