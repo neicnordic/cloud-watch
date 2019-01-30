@@ -27,11 +27,11 @@ public class VMGrid extends Grid<VM> {
         decimalFormat.setMinimumFractionDigits(2);
 
         // To change the text alignment of the column, a template is used.
-        final String flavourTemplate = "<div>[[item.flavour]]</div>";
+        final String flavourTemplate = "<div>[[item.image]]</div>";
         addColumn(TemplateRenderer.<VM>of(flavourTemplate)
-                .withProperty("flavour", VM::getFlavour))
-                .setHeader("Flavour")
-                .setComparator(Comparator.comparing(VM::getFlavour))
+                .withProperty("image", VM::getImage))
+                .setHeader("Image")
+                .setComparator(Comparator.comparing(VM::getImage))
                 .setFlexGrow(3);
 
         final String availabilityTemplate = "<iron-icon icon=\"vaadin:circle\" class-name=\"[[item.availability]]\"></iron-icon> [[item.availability]]";
