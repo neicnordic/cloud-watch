@@ -20,10 +20,10 @@ public class TenantGrid extends Grid<Tenant> {
 
         addColumn(Tenant::getName)
                 .setHeader("Tenant name")
-                .setFlexGrow(20)
+                .setFlexGrow(12)
                 .setSortable(true);
 
-        final String vmsRunningTemplate = "<div style='text-align: right'>[[item.vms]]</div>";
+        final String vmsRunningTemplate = "<div>[[item.vms]]</div>";
         addColumn(TemplateRenderer.<Tenant>of(vmsRunningTemplate)
                 .withProperty("vms", Tenant::getVmsRunning))
                 .setHeader("VMs running")
@@ -33,7 +33,9 @@ public class TenantGrid extends Grid<Tenant> {
         addColumn(this::formatRegions)
                 .setHeader("Region")
                 .setComparator(Comparator.comparing(tenant -> tenant.getRegion().getName()))
-                .setFlexGrow(12);
+                .setFlexGrow(4);
+
+        addColumn(Tenant::getSource).setHeader("Source").setSortable(true).setFlexGrow(5);
     }
 
     private String formatRegions(Tenant tenant) {
