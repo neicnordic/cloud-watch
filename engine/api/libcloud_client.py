@@ -2,6 +2,7 @@ import sys
 import os
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
+from config import CloudConfig
 
 import libcloud.security
 
@@ -64,28 +65,32 @@ def load_data(path):
 
 def load_credentials():
     """ load credentials data """
-    credentials = load_data(os.path.abspath('config.yaml'))
+    credentials = load_data(os.path.abspath('example-config.yaml'))
     return credentials
 
-def get_openstack_libcloud():
+def get_config():
     credentials = load_credentials()
-    libcloud.security.VERIFY_SSL_CERT = False
-    OpenStack = get_driver(Provider.OPENSTACK)
-    driver = OpenStack(credentials['user'], credentials['password'],
-                       ex_tenant_name=credentials['tenant'],
-                       ex_domain_name=credentials['domain'],
-                       ex_force_auth_url=credentials['auth_url'],
-                       ex_force_service_region=credentials['region'],
-                       ex_force_auth_version=credentials['version'])
-    return driver
+    return CloudConfig(credentials)
 
-def get_openstack_nodes(driver):
-    return driver.list_nodes()
+def get_all_drivers(config):
+    drivers = []
+    for driver in config.get_drivers():
+        drivers.append(driver.list_nodes())
+    return drivers
+
+def get_all_nodes(drivers):
+    nodes = []
+    for driver in drivers:
+        for node in driver:
+            nodes.append(node)
+    return nodes
 
 def main():
-    driver = get_openstack_libcloud()
-    nodes = get_openstack_nodes(driver)
-    print (nodes[0].created_at)
+    config = get_config()
+    drivers = get_all_drivers(config)
+    nodes = get_all_nodes(drivers)
+    print (nodes)
+
 
 if __name__ == '__main__':
     main()
