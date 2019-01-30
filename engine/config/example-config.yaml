@@ -1,0 +1,9 @@
+openstack:
+  cloud-watch-iaas:
+    version: 3.x_password
+    region: HPC2N
+    auth_url: https://hpc2n.cloud.snic.se:5000
+    user: myuser
+    password: mypassword
+    tenant: SNIC 2018/10-50
+    domain: snic

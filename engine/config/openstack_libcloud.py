@@ -1,11 +1,5 @@
 import sys
 import os
-from os import walk
-import collections
-import errno
-import subprocess
-from pkg_resources import iter_entry_points
-
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 
@@ -71,7 +65,6 @@ def load_data(path):
 def load_credentials():
     """ load credentials data """
     credentials = load_data(os.path.abspath('config.yaml'))
-    print credentials
     return credentials
 
 def get_openstack_libcloud():
@@ -79,20 +72,20 @@ def get_openstack_libcloud():
     libcloud.security.VERIFY_SSL_CERT = False
     OpenStack = get_driver(Provider.OPENSTACK)
     driver = OpenStack(credentials['user'], credentials['password'],
-                   ex_tenant_name=credentials['tenant'],
-                   ex_domain_name=credentials['domain'],
-                   ex_force_auth_url=credentials['auth_url'],
-                   ex_force_service_region=credentials['region'],
-                   ex_force_auth_version=credentials['version'])
+                       ex_tenant_name=credentials['tenant'],
+                       ex_domain_name=credentials['domain'],
+                       ex_force_auth_url=credentials['auth_url'],
+                       ex_force_service_region=credentials['region'],
+                       ex_force_auth_version=credentials['version'])
     return driver
 
-def get_openstack_sizes(driver):
-    return driver.list_sizes()[0]
+def get_openstack_nodes(driver):
+    return driver.list_nodes()
 
 def main():
     driver = get_openstack_libcloud()
-    sizes = get_openstack_sizes(driver)
-    print sizes
+    nodes = get_openstack_nodes(driver)
+    print (nodes[0].created_at)
 
 if __name__ == '__main__':
     main()
