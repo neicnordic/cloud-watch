@@ -9,7 +9,7 @@ public class Tenant implements Serializable {
     private String name = "";
     private String source = "";
     private Region region;
-    private int vmsRunning;
+    private String vmsRunning;
 
     public int getId() {
         return id;
@@ -43,11 +43,11 @@ public class Tenant implements Serializable {
         this.region = region;
     }
 
-    public int getVmsRunning() {
+    public String getVmsRunning() {
         return vmsRunning;
     }
 
-    public void setVmsRunning(int vmsRunning) {
+    public void setVmsRunning(String vmsRunning) {
         this.vmsRunning = vmsRunning;
     }
 

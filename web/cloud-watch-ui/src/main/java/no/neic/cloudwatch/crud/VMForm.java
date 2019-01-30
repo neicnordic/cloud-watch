@@ -22,6 +22,8 @@ public class VMForm extends Div {
     private VerticalLayout content;
 
     private TextField name;
+    private TextField createdAt;
+    private TextField ip;
     private ComboBox<Status> status;
     private ComboBox<Region> region;
     private Button cancel;
@@ -44,6 +46,18 @@ public class VMForm extends Div {
         name.setEnabled(false);
         content.add(name);
 
+        createdAt = new TextField("Created at");
+        createdAt.setWidth("100%");
+        createdAt.setRequired(true);
+        createdAt.setEnabled(false);
+        content.add(createdAt);
+
+        ip = new TextField("IP address");
+        ip.setWidth("100%");
+        ip.setRequired(true);
+        ip.setEnabled(false);
+        content.add(ip);
+
         status = new ComboBox<>("Status");
         status.setWidth("100%");
         status.setRequired(true);
@@ -60,6 +74,7 @@ public class VMForm extends Div {
 
         binder = new BeanValidationBinder<>(VM.class);
         binder.bindInstanceFields(this);
+        binder.bind(createdAt, "date");
 
         cancel = new Button("Cancel");
         cancel.setWidth("100%");

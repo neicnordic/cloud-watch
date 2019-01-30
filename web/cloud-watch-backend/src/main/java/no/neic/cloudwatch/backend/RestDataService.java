@@ -44,7 +44,7 @@ public class RestDataService extends DataService {
                 tenantObject.setName(tenantMap.get("tenant"));
                 tenantObject.setRegion(new Region(tenantMap.get("region")));
                 tenantObject.setSource(tenantMap.get("provider"));
-                tenantObject.setVmsRunning(vms.size());
+                tenantObject.setVmsRunning(String.valueOf(vms.size()));
                 result.add(tenantObject);
             }
             return result;
