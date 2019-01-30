@@ -1,0 +1,21 @@
+openstack:
+  cloud-watch-iaas:
+    version: 3.x_password
+    region: HPC2N
+    auth_url: https://hpc2n.cloud.snic.se:5000
+    user: myuser
+    password: mypassword
+    tenant: SNIC 2018/10-50
+    domain: snic
+
+gce:
+  cloud-watch-iaas:
+    gce_credentials_file: "/home/anders/projekt/phenomenal/google_cloud/phenomenal-gce-key.json"
+    gce_project: "phenomenal-1145"
+    gce_service_account_email: "12202776487-compute@developer.gserviceaccount.com"
+    
+aws:
+  cloud-watch-iaas:
+    aws_access_key_id: "AKIAJZWKGOCQLT6GH3LQ"
+    aws_secret_access_key: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    aws_region = "eu-west-1"

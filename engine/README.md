@@ -15,3 +15,10 @@ python setup.py develop
 ```
 python app.py
 ```
+
+**Run engine container**
+
+Run the docker container interactively like this, where `src-dir` is the cloud-watch repo folder, with port 8080 on host mapped to 8080 on container
+```
+docker run --rm -p 8080:8080 -v <src-dir>:/ -it snapple49/engine:latest sh
+```
