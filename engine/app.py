@@ -20,7 +20,7 @@ app.add_api('api/api.yaml', strict_validation=True, validate_responses=False)
 @app.route("/")
 def docs():
     output = "<h2>Cloud Watch REST API server</h2>"
-    output += '<ul><li><a href=/api/ui>api docs</a></li>'
+    output += '<ul><li><a href=/v1/ui>api docs</a></li>'
     return output
 
 @app.route("/health")

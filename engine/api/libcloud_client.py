@@ -63,13 +63,13 @@ def load_data(path):
     else:
         return {}
 
-def load_credentials():
+def load_credentials(filename):
     """ load credentials data """
-    credentials = load_data(os.path.abspath('example-config.yaml'))
+    credentials = load_data(os.path.abspath(filename))
     return credentials
 
-def get_config():
-    credentials = load_credentials()
+def get_config(filename='example-config.yaml'):
+    credentials = load_credentials(filename)
     return CloudConfig(credentials)
 
 def get_all_drivers(config):

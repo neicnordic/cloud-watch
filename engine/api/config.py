@@ -30,7 +30,7 @@ class CloudConfig:
                         ex_domain_name=values['domain'],
                         ex_force_auth_url=values['auth_url'],
                         ex_force_service_region=values['region'],
-                        ex_force_auth_version=values['version']))
+                        ex_force_auth_version=values['version'])
                     self.drivers.append(driver)
 
     def get_drivers(self):

@@ -12,7 +12,8 @@ config = {
         'flask',
         'configparser',
         'connexion',
-        'connexion[swagger-ui]'
+        'connexion[swagger-ui]',
+        'apache-libcloud'
     ],
     'packages': ['api'],
     'scripts': [],

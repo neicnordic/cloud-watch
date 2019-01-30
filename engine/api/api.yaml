@@ -16,17 +16,49 @@ basePath: /v1
 
 tags:
 - name: vms
-  description: Everything about your VMS
-  externalDocs:
-    description: Find out more
-    url: http://swagger.io
+  description: Everything about your VMs
+- name: tenants
+  description: Everything about your tenants
+
+definitions:
+  tenant:
+    type: object
+    properties:
+      id:
+        type: string
+      provider:
+        type: string
+      region:
+        type: string
+  vm:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      tenant:
+        type: string
+      region:
+        type: string
+      state:
+        type: string
+      creation_at:
+        type: string
+        format: date-time
+      public_ips:
+        type: string
+      size:
+        type: string
+      image:
+        type: string
 
 paths:
   /tenants:
     get:
       operationId: api.tenants.get
       tags:
-      - vms
+      - tenants
       summary: Finds all tenants
       description: Gives a list of all tenants, with information about names, regions and clould provider.
       produces:
@@ -37,27 +69,22 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Vm'
+              $ref: '#/definitions/tenant'
         400:
           description: Invalid status value
-
-definitions:
-  Tenant:
-    type: object
-    properties:
-      id:
-        type: string
-      provider:
-        type: string
-      region:
-        type: string
-  Vm:
-    type: object
-    properties:
-      id:
-        type: string
-      name:
-        type: string
-      creation_time:
-        type: string
-        format: date-time
+  /instances:
+    get:
+      operationId: api.instances.get_all
+      tags:
+        - vms
+      summary: Get a list of all instances
+      description: Get a list of all instances in all tenants defined in the config file
+      produces:
+        - application/json
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/vm'

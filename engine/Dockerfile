@@ -7,3 +7,4 @@ RUN apt update && \
     python setup.py install
 
 WORKDIR /cloud-watch/engine
+CMD python /cloud-watch/engine/app.py
