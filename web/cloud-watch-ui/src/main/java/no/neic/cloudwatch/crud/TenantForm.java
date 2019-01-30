@@ -31,8 +31,6 @@ public class TenantForm extends Div {
     public TenantForm(TenantCrudLogic tenantCrudLogic) {
         setClassName("product-form");
 
-
-
         content = new VerticalLayout();
         content.setSizeUndefined();
         add(content);
@@ -45,7 +43,7 @@ public class TenantForm extends Div {
         name.setEnabled(false);
         content.add(name);
 
-        region = new ComboBox("Region");
+        region = new ComboBox<>("Region");
         region.setWidth("100%");
         region.setRequired(true);
         region.setEnabled(false);
@@ -66,6 +64,7 @@ public class TenantForm extends Div {
 
         binder = new BeanValidationBinder<>(Tenant.class);
         binder.bindInstanceFields(this);
+        binder.bind(runningVms, "vmsRunning");
 
         cancel = new Button("Cancel");
         cancel.setWidth("100%");
