@@ -45,6 +45,7 @@ def tenants(url):
 
 def vms(url):
     data = pull_rest("{url}/{path}".format( url=url, path='instances'))
+    x = PrettyTable()
 
     x.field_names = ["UUID", "Name", "IPs", "Created at", 'Tenant', 'Region']
     x.align["UUID"] = "l"
