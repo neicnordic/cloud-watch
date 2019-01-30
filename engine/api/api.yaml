@@ -6,11 +6,13 @@ info:
   version: 1.0.0
   title: Cloud Watch
   termsOfService: http://swagger.io/terms/
-  contact:
-    email: apiteam@swagger.io
   license:
     name: MIT
-    url: URL
+    url: https://raw.githubusercontent.com/neicnordic/cloud-watch/master/LICENSE
+consumes:
+  - "application/json"
+produces:
+- "application/json"
 
 basePath: /v1
 
@@ -63,8 +65,6 @@ paths:
       - tenants
       summary: Finds all tenants
       description: Gives a list of all tenants, with information about names, regions and clould provider.
-      produces:
-      - application/json
       responses:
         200:
           description: successful operation
@@ -76,13 +76,16 @@ paths:
           description: Invalid status value
   /instances:
     get:
-      operationId: api.instances.get_all
+      operationId: api.instances.get
       tags:
         - vms
       summary: Get a list of all instances
       description: Get a list of all instances in all tenants defined in the config file
-      produces:
-        - application/json
+      parameters:
+        - name: name
+          in: query
+          type: string
+          required: False
       responses:
         200:
           description: successful operation

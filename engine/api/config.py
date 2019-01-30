@@ -18,6 +18,19 @@ class CloudConfig:
         self.set_drivers()
 
 
+    def get_driver(self, name):
+        for provider, block in self.config.iteritems():
+            if provider == "openstack":
+                values = block[name]
+                OpenStack = get_driver(Provider.OPENSTACK)
+                driver = OpenStack(values['user'], values['password'],
+                                   ex_tenant_name=values['tenant'],
+                                   ex_domain_name=values['domain'],
+                                   ex_force_auth_url=values['auth_url'],
+                                   ex_force_service_region=values['region'],
+                                   ex_force_auth_version=values['version'])
+                return driver
+
     def set_drivers(self):
         self.drivers = []
 

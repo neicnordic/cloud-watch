@@ -1,11 +1,16 @@
 from connexion import NoContent
 import libcloud_client
 
-def get_all():
+def get(name=None):
     config = libcloud_client.get_config('config/config.yaml')
-    #print config.config
-    drivers = libcloud_client.get_all_drivers(config)
+    if name:
+        drivers = libcloud_client.get_driver(config, name)
+    else:
+        drivers = libcloud_client.get_all_drivers(config)
     nodes = libcloud_client.get_all_nodes(drivers)
+    return get_node_list(nodes), 200
+
+def get_node_list(nodes):
     outlist = list()
     attrs = ['id', 'name', 'public_ips', 'image', 'size', 'state']
     for node in nodes:
@@ -20,5 +25,4 @@ def get_all():
         instance['tenant'] = node.driver._ex_tenant_name
         instance['region'] = node.driver._ex_force_service_region
         outlist.append(instance)
-    print dir(nodes[0].driver)
-    return outlist, 200
+    return outlist

@@ -78,6 +78,12 @@ def get_all_drivers(config):
         drivers.append(driver.list_nodes())
     return drivers
 
+def get_driver(config, name):
+    drivers = []
+    driver = config.get_driver(name)
+    drivers.append(driver.list_nodes())
+    return drivers
+
 def get_all_nodes(drivers):
     nodes = []
     for driver in drivers:
