@@ -39,7 +39,7 @@ class CloudConfig:
                         values['gce_service_account_email'],
                         values['gce_credentials_file'],
                         project=values['gce_project'])
-               return driver
+                return driver
                         
             elif provider == "aws":
                 values = block[name]
@@ -47,7 +47,7 @@ class CloudConfig:
                 driver = AWS_EC2(
                         values['aws_access_key_id'],
                         values['aws_secret_access_key'])
-              return driver
+                return driver
 
     def set_drivers(self):
         self.drivers = []
@@ -56,29 +56,32 @@ class CloudConfig:
             if provider == "openstack":
                 for tag, values in block.iteritems():
                     OpenStack = get_driver(Provider.OPENSTACK)
-                    self.drivers.append(driver = OpenStack(
+                    driver = OpenStack(
                         values['user'],
                         values['password'],
                         ex_tenant_name=values['tenant'],
                         ex_domain_name=values['domain'],
                         ex_force_auth_url=values['auth_url'],
                         ex_force_service_region=values['region'],
-                        ex_force_auth_version=values['version']))
+                        ex_force_auth_version=values['version'])
+                    self.drivers.append(driver)
                         
             elif provider == "gce":
                 for tag, values in block.iteritems():
                     ComputeEngine = get_driver(Provider.GCE)
-                    self.drivers.append(driver = ComputeEngine(
+                    driver = ComputeEngine(
                         values['gce_service_account_email'],
                         values['gce_credentials_file'],
-                        project=values['gce_project']))
-                        
+                        project=values['gce_project'])
+                    self.drivers.append(driver)
+
             elif provider == "aws":
                 for tag, values in block.iteritems():
                     AWS_EC2 = get_driver(Provider.EC2)
-                    self.drivers.append(driver = AWS_EC2(
+                    driver = AWS_EC2(
                         values['aws_access_key_id'],
-                        values['aws_secret_access_key']))
+                        values['aws_secret_access_key'])
+                    self.drivers.append(driver)
 
     def get_drivers(self):
         return list(self.drivers)
