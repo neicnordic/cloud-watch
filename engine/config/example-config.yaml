@@ -1,5 +1,5 @@
 openstack:
-  cloud-watch-iaas:
+  example-snic:
     version: 3.x_password
     region: HPC2N
     auth_url: https://hpc2n.cloud.snic.se:5000
@@ -7,6 +7,14 @@ openstack:
     password: mypassword
     tenant: SNIC 2018/10-50
     domain: snic
+  example-uh-iaas:
+    tenant:      DEMO-ola.normann.uib.no
+    domain:      dataporten
+    auth_url:    https://api.uh-iaas.no:5000
+    region:      osl
+    version:     3.x_password
+    user:        ola.normann@uib.no
+    password:    zqctmZMdgQdAU0Lhl
 
 gce:
   cloud-watch-iaas:
