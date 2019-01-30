@@ -24,7 +24,6 @@ public class VMDataProvider extends ListDataProvider<VM> {
         }
         this.tenantFilterText = filterText.trim();
 
-
         updateFilter();
     }
 
@@ -52,12 +51,12 @@ public class VMDataProvider extends ListDataProvider<VM> {
         setFilter(vm -> (passesFilter(vm.getName(), filterText)
                 || passesFilter(vm.getImage(), filterText)
                 || passesFilter(vm.getStatus(), filterText))
-        && passesFilter(vm.getTenant(), tenantFilterText) && passesFilter(vm.getRegion(), regionFilterText));
+        && passesFilter(vm.getTenant().getName(), tenantFilterText) && passesFilter(vm.getRegion().getName(), regionFilterText));
     }
 
     private boolean passesFilter(Object object, String filterText) {
         return object != null && object.toString().toLowerCase(Locale.ENGLISH)
-                .contains(filterText);
+                .contains(filterText.toLowerCase(Locale.ENGLISH));
     }
 
 }
