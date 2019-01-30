@@ -38,23 +38,24 @@ public class VMForm extends Div {
 
         viewLogic = vmCrudLogic;
 
-        name = new TextField("Tenant name");
+        name = new TextField("VM name");
         name.setWidth("100%");
         name.setRequired(true);
-        name.setValueChangeMode(ValueChangeMode.EAGER);
+        name.setEnabled(false);
         content.add(name);
 
         status = new ComboBox<>("Status");
         status.setWidth("100%");
         status.setRequired(true);
         status.setItems(Status.values());
-        status.setAllowCustomValue(false);
+        status.setEnabled(false);
         content.add(status);
 
         region = new ComboBox<>("Region");
         region.setWidth("100%");
         region.setRequired(true);
         region.setAllowCustomValue(false);
+        region.setEnabled(false);
         content.add(region);
 
         binder = new BeanValidationBinder<>(VM.class);
