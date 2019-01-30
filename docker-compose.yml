@@ -7,7 +7,7 @@ services:
     ports:
     - "8080:8080"
     volumes:
-    - ${PWD}/engine/config/config.yml:/cloud-watch/engine/config/config.yml
+    - ${PWD}/engine/config/config.yaml:/cloud-watch/engine/config/config.yaml
 
   web:
     image: dtitov/cloud-watch-web:latest
