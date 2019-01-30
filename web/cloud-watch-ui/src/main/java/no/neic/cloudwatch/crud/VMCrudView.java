@@ -1,5 +1,6 @@
 package no.neic.cloudwatch.crud;
 
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -7,6 +8,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import no.neic.cloudwatch.MainLayout;
 import no.neic.cloudwatch.backend.DataService;
+import no.neic.cloudwatch.backend.data.Region;
 import no.neic.cloudwatch.backend.data.Tenant;
 import no.neic.cloudwatch.backend.data.VM;
 
@@ -24,6 +26,8 @@ public class VMCrudView extends HorizontalLayout
     public static final String VIEW_NAME = "VMs";
     private VMGrid grid;
     private VMForm form;
+    private ComboBox<Tenant> tenantFilter;
+    private ComboBox<Region> regionFilter;
     private TextField filter;
 
     private VMCrudLogic viewLogic = new VMCrudLogic(this);
@@ -57,15 +61,25 @@ public class VMCrudView extends HorizontalLayout
     }
 
     public HorizontalLayout createTopBar() {
+        DataService dataService = DataService.get();
+
+        tenantFilter = new ComboBox<>("Tenant", dataService.getAllTenants());
+        tenantFilter.setItemLabelGenerator(Tenant::getName);
+        tenantFilter.addValueChangeListener(event -> dataProvider.setTenantFilter(tenantFilter.getValue() == null ? "" : tenantFilter.getValue().getName()));
+
+        regionFilter = new ComboBox<>("Region", dataService.getAllRegions());
+        regionFilter.setItemLabelGenerator(Region::getName);
+        regionFilter.addValueChangeListener(event -> dataProvider.setRegionFilter(regionFilter.getValue() == null ? "" : regionFilter.getValue().getName()));
+
         filter = new TextField();
-        filter.setPlaceholder("Filter name, availability or category");
+        filter.setPlaceholder("Filter entries by typing here...");
         // Apply the filter to grid's data provider. TextField value is never null
         filter.addValueChangeListener(event -> dataProvider.setFilter(event.getValue()));
 
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setWidth("100%");
-        topLayout.add(filter);
-        topLayout.setVerticalComponentAlignment(Alignment.START, filter);
+        topLayout.add(tenantFilter, regionFilter, filter);
+        topLayout.setVerticalComponentAlignment(Alignment.END, tenantFilter, regionFilter, filter);
         topLayout.expand(filter);
         return topLayout;
     }
