@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """ 
  
  
@@ -47,14 +47,16 @@ def vms(url):
     data = pull_rest("{url}/{path}".format( url=url, path='instances'))
     x = PrettyTable()
 
-    x.field_names = ["UUID", "Name", "IPs", "Created at", 'Tenant', 'Region']
+    x.field_names = ["UUID", "Name", "IPs", 'state', "Created at", 'Tenant', 'Region']
     x.align["UUID"] = "l"
     x.align["Name"] = "l"
     x.align["IPs"] = "l"
+    x.align["State"] = "l"
     x.align["Tenant"] = "l"
     x.align["Region"] = "l"
     for instance in data:
-        x.add_row( [ instance['name'], instance['public_ips'],
+        pp.pprint( instance )
+        x.add_row( [ instance['id'], instance['name'], instance['public_ips'],
                      instance['state'], instance['created_at'],
                      instance['tenant'], instance['region']] )
 
