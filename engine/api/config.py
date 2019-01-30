@@ -44,9 +44,9 @@ class CloudConfig:
             elif provider == "aws":
                 values = block[name]
                 AWS_EC2 = get_driver(Provider.EC2)
-                 driver = AWS_EC2(
+                driver = AWS_EC2(
                         values['aws_access_key_id'],
-                        values['aws_secret_access_key']))
+                        values['aws_secret_access_key'])
               return driver
 
     def set_drivers(self):
