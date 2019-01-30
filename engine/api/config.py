@@ -13,9 +13,9 @@ class CloudConfig:
 
         # load config yaml
         self.config = configfile
-        # populate all fields
 
-        self.providers = [self.Provider(provider) for provider in self.config]
+        # populate all fields
+        self.set_drivers()
 
 
     def set_drivers(self):
@@ -25,12 +25,13 @@ class CloudConfig:
             if provider == "openstack":
                 for tag, values in block.iteritems():
                     OpenStack = get_driver(Provider.OPENSTACK)
-                    self.drivers.append(driver = OpenStack(values['user'], values['password'],
+                    driver = OpenStack(values['user'], values['password'],
                         ex_tenant_name=values['tenant'],
                         ex_domain_name=values['domain'],
                         ex_force_auth_url=values['auth_url'],
                         ex_force_service_region=values['region'],
                         ex_force_auth_version=values['version']))
+                    self.drivers.append(driver)
 
     def get_drivers(self):
         return list(self.drivers)
