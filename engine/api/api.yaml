@@ -24,7 +24,9 @@ definitions:
   tenant:
     type: object
     properties:
-      id:
+      name:
+        type: string
+      tenant:
         type: string
       provider:
         type: string

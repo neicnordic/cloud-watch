@@ -37,4 +37,15 @@ class CloudConfig:
         return list(self.drivers)
 
     def get_tenants(self):
-        pass
+        tenants = list()
+        for provider, block in self.config.iteritems():
+            if provider == "openstack":
+                for tag, values in block.iteritems():
+                    tenant = {
+                        'provider': provider,
+                        'tenant': values['tenant'],
+                        'region': values['region'],
+                        'name': tag
+                    }
+                    tenants.append(tenant)
+        return tenants
