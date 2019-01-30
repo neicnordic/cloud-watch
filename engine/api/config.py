@@ -9,10 +9,10 @@ class CloudConfig:
         def __init__(self, provider):
             self.provider = provider
 
-    def __init__(self):
+    def __init__(self, configfile):
 
         # load config yaml
-        self.config = {}
+        self.config = configfile
         # populate all fields
 
         self.providers = [self.Provider(provider) for provider in self.config]
