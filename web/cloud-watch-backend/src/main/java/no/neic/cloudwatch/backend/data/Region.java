@@ -8,6 +8,13 @@ public class Region implements Serializable {
 
     private String name;
 
+    public Region() {
+    }
+
+    public Region(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

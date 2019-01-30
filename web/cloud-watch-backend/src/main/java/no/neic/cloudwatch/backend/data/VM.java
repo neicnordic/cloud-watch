@@ -5,9 +5,12 @@ import java.io.Serializable;
 public class VM implements Serializable {
 
     private int id = -1;
+    private String stringId = "";
+    private String ip;
+    private String date;
     private String name = "";
     private Tenant tenant;
-    private String flavour = "";
+    private String image = "";
     private Status status;
     private Region region;
 
@@ -17,6 +20,30 @@ public class VM implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getStringId() {
+        return stringId;
+    }
+
+    public void setStringId(String stringId) {
+        this.stringId = stringId;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getName() {
@@ -35,12 +62,12 @@ public class VM implements Serializable {
         this.tenant = tenant;
     }
 
-    public String getFlavour() {
-        return flavour;
+    public String getImage() {
+        return image;
     }
 
-    public void setFlavour(String flavour) {
-        this.flavour = flavour;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Status getStatus() {

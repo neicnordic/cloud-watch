@@ -50,7 +50,7 @@ public class VMDataProvider extends ListDataProvider<VM> {
 
     private void updateFilter() {
         setFilter(vm -> (passesFilter(vm.getName(), filterText)
-                || passesFilter(vm.getFlavour(), filterText)
+                || passesFilter(vm.getImage(), filterText)
                 || passesFilter(vm.getStatus(), filterText))
         && passesFilter(vm.getTenant(), tenantFilterText) && passesFilter(vm.getRegion(), regionFilterText));
     }
