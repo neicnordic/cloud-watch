@@ -39,7 +39,7 @@ class CloudConfig:
                         values['gce_service_account_email'],
                         values['gce_credentials_file'],
                         project=values['gce_project'])
-               return driver
+                return driver
                         
             elif provider == "aws":
                 values = block[name]
@@ -47,7 +47,7 @@ class CloudConfig:
                 driver = AWS_EC2(
                         values['aws_access_key_id'],
                         values['aws_secret_access_key'])
-              return driver
+                return driver
 
     def set_drivers(self):
         self.drivers = []
